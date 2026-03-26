@@ -6,7 +6,7 @@ import { NotFound } from "./pages/NotFound";
 
 export const router = createBrowserRouter([
 	{
-		path: "/MagicHome",
+		path: "/",
 		Component: HomePage,
 	},
 	{
@@ -24,6 +24,6 @@ export const router = createBrowserRouter([
 	 
 ],
  {
-  basename: "/",
+  basename: "/MagicHome",
 }
 	  );
