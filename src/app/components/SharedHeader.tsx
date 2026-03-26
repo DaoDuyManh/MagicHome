@@ -60,7 +60,7 @@ export function SharedHeader() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
-              <a href="/#home" className="text-gray-600 hover:text-orange-500 text-sm transition-colors" style={{ letterSpacing: "0.02em" }}>
+              <a href="/MagicHome" className="text-gray-600 hover:text-orange-500 text-sm transition-colors" style={{ letterSpacing: "0.02em" }}>
                 Home
               </a>
 
