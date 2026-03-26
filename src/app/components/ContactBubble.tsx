@@ -70,6 +70,27 @@ export function ContactBubble() {
     setReady(true);
   }, []);
 
+  // Re-snap to nearest edge on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const current = posRef.current;
+      const centerX = current.x + BUBBLE_SIZE / 2;
+      const snapX =
+        centerX < window.innerWidth / 2
+          ? EDGE_MARGIN
+          : window.innerWidth - BUBBLE_SIZE - EDGE_MARGIN;
+      const clampedY = Math.max(
+        EDGE_MARGIN,
+        Math.min(window.innerHeight - BUBBLE_SIZE - EDGE_MARGIN, current.y)
+      );
+      setIsTransitioning(true);
+      setPos({ x: snapX, y: clampedY });
+      setTimeout(() => setIsTransitioning(false), 400);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Close when clicking outside
   useEffect(() => {
     if (!isOpen) return;

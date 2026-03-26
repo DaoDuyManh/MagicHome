@@ -21,6 +21,50 @@ export const heroImages: string[] = [
   `${b}cover_video/covervideo.jpg`,
 ];
 
+// ── STEP BY STEP IMAGES ──────────────────────────────────────────
+// Thêm ảnh vào thư mục /public/StepByStep/ và khai báo đường dẫn ở đây
+export const stepByStepImages: string[] = [
+  `${b}StepByStep/StepByStep.jpg`,
+];
+
+// ── PORTFOLIO IMAGES ─────────────────────────────────────────────
+// Thêm ảnh vào thư mục /public/Portfolio/ và khai báo đường dẫn ở đây
+export const portfolioImages: string[] = [
+  `${b}Portfolio/Portfolio1.jpg`,
+  `${b}Portfolio/Portfolio2.jpg`,
+  `${b}Portfolio/Portfolio3.jpg`,
+  `${b}Portfolio/Portfolio4.jpg`,
+  `${b}Portfolio/Portfolio5.jpg`,
+  `${b}Portfolio/Portfolio6.jpg`,
+  `${b}Portfolio/Portfolio7.jpg`,
+  `${b}Portfolio/Portfolio8.jpg`, 
+  `${b}Portfolio/Portfolio9.jpg`,
+  `${b}Portfolio/Portfolio10.jpg`,
+  `${b}Portfolio/Portfolio11.jpg`,
+  `${b}Portfolio/Portfolio12.jpg`,
+  `${b}Portfolio/Portfolio13.jpg`,
+  `${b}Portfolio/Portfolio14.jpg`,
+  `${b}Portfolio/Portfolio15.jpg`,
+  `${b}Portfolio/Portfolio16.jpg`,
+  `${b}Portfolio/Portfolio17.jpg`,
+  `${b}Portfolio/Portfolio18.jpg`,
+  `${b}Portfolio/Portfolio19.jpg`,
+  `${b}Portfolio/Portfolio20.jpg`,
+  `${b}Portfolio/Portfolio21.jpg`,
+  `${b}Portfolio/Portfolio22.jpg`,
+  `${b}Portfolio/Portfolio23.jpg`,
+  `${b}Portfolio/Portfolio24.jpg`,
+  `${b}Portfolio/Portfolio25.jpg`,
+  `${b}Portfolio/Portfolio26.jpg`,
+  `${b}Portfolio/Portfolio27.jpg`,
+  `${b}Portfolio/Portfolio28.jpg`,
+  `${b}Portfolio/Portfolio29.jpg`,
+  `${b}Portfolio/Portfolio30.jpg`,
+  `${b}Portfolio/Portfolio31.jpg`,
+  `${b}Portfolio/Portfolio32.jpg`,
+
+];
+
 // ================================================================
 // DANH SÁCH DỊCH VỤ
 // ================================================================
@@ -38,10 +82,30 @@ export const services = [
     coverImage: `${b}Photos/cover.jpg`,
     images: [
       { id: '1', url: `${b}Photos/photos1.jpg`, caption: '' },
+      { id: '2', url: `${b}Photos/photos2.jpg`, caption: '' },
+      { id: '3', url: `${b}Photos/photos3.jpg`, caption: '' },
+      { id: '4', url: `${b}Photos/photos4.jpg`, caption: '' },
+      { id: '5', url: `${b}Photos/photos5.jpg`, caption: '' },
+      { id: '6', url: `${b}Photos/photos6.jpg`, caption: '' },
+      { id: '7', url: `${b}Photos/photos7.jpg`, caption: '' },
+      { id: '8', url: `${b}Photos/photos8.jpg`, caption: '' },
+      { id: '9', url: `${b}Photos/photos9.jpg`, caption: '' },
+      { id: '10', url: `${b}Photos/photos10.jpg`, caption: '' },
+      { id: '11', url: `${b}Photos/photos11.jpg`, caption: '' },
+      { id: '12', url: `${b}Photos/photos12.jpg`, caption: '' },
+      { id: '13', url: `${b}Photos/photos13.jpg`, caption: '' },
+      { id: '14', url: `${b}Photos/photos14.jpg`, caption: '' },
+      { id: '15', url: `${b}Photos/photos15.jpg`, caption: '' },
+      { id: '16', url: `${b}Photos/photos16.jpg`, caption: '' },
+      { id: '17', url: `${b}Photos/photos17.jpg`, caption: '' },
+      { id: '18', url: `${b}Photos/photos18.jpg`, caption: '' },
+      { id: '19', url: `${b}Photos/photos19.jpg`, caption: '' },
+      { id: '20', url: `${b}Photos/photos20.jpg`, caption: '' },
+ 
     ],
     videos: [],
     beforeAfterPairs: [
-      { id: 'ba1', before: `${b}Before_After Image Slider/Photos/Before1.jpg`,  after: `${b}Before_After Image Slider/Photos/affter1.jpg`,  label: 'Before & After 1' },
+      { id: 'ba1', before: `${b}Before_After Image Slider/Photos/before1.jpg`,  after: `${b}Before_After Image Slider/Photos/affter1.jpg`,  label: 'Before & After 1' },
       { id: 'ba2', before: `${b}Before_After Image Slider/Photos/before2.jpg`, after: `${b}Before_After Image Slider/Photos/affter2.jpg`, label: 'Before & After 2' },
     ],
   },
@@ -49,7 +113,7 @@ export const services = [
   // ── 2. DAY TO DUSK ────────────────────────────────────────────
   {
     id: 'day-to-dusk',
-    name: 'Day to Dusk',
+    name: 'Day To Dusk',
     subtitle: 'Twilight – Sunset Sky – Glow Effect',
     price: 'From $5',
     priceUnit: 'per image',
@@ -58,6 +122,11 @@ export const services = [
     coverImage: `${b}DaytoDusk/cover.jpg`,
     images: [
       { id: '1', url: `${b}DaytoDusk/DaytoDusk.jpg`, caption: '' },
+      { id: '2', url: `${b}DaytoDusk/DaytoDusk1.jpg`, caption: '' },
+      { id: '2', url: `${b}DaytoDusk/DaytoDusk2.jpg`, caption: '' },
+      { id: '3', url: `${b}DaytoDusk/DaytoDusk3.jpg`, caption: '' },
+      { id: '4', url: `${b}DaytoDusk/DaytoDusk4.jpg`, caption: '' },
+
     ],
     videos: [],
     beforeAfterPairs: [

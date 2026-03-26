@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { BeforeAfterSlider } from "./BeforeAfterSlider";
 import { Service } from "../types/service";
@@ -10,6 +10,18 @@ interface ServiceRowProps {
 
 /** Returns true if the text block should appear on the LEFT side */
 const textOnLeft = (index: number) => index % 2 === 0;
+
+function getYouTubeEmbedUrl(youtubeUrl: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const pattern of patterns) {
+    const match = youtubeUrl.match(pattern);
+    if (match) return `https://www.youtube.com/embed/${match[1]}?rel=0&modestbranding=1`;
+  }
+  return null;
+}
 
 function PriceBlock({ service }: { service: Service }) {
   return (
@@ -102,6 +114,27 @@ function MediaBlock({ service }: { service: Service }) {
       <BeforeAfterSlider before={pair.before} after={pair.after} />
     );
   }
+
+  // If service has videos (e.g. Video service), show first YouTube embed
+  if (service.videos && service.videos.length > 0) {
+    const video = service.videos[0];
+    const embedUrl = getYouTubeEmbedUrl(video.youtubeUrl);
+    if (embedUrl) {
+      return (
+        <div className="w-full overflow-hidden rounded-xl shadow-md" style={{ aspectRatio: "16/9" }}>
+          <iframe
+            src={embedUrl}
+            title={video.title || service.name}
+            className="w-full h-full"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+      );
+    }
+  }
+
   // Fallback: cover image
   return (
     <div className="w-full overflow-hidden rounded-xl shadow-md" style={{ aspectRatio: "4/3" }}>

@@ -1,42 +1,16 @@
-import { useState, useMemo } from "react";
-import { motion } from "motion/react";
-import { Star, ArrowRight, Phone, Mail, ChevronRight, Check } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Star, ArrowRight, ChevronRight, Check, X, ChevronLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useServices } from "../hooks/useServices";
-import { logoImg, heroImages } from "../data/initialServices";
+import { heroImages, stepByStepImages, portfolioImages } from "../data/initialServices";
 import { SharedHeader } from "../components/SharedHeader";
+import { SharedFooter } from "../components/SharedFooter";
 import { AnimatedCounter } from "../components/AnimatedCounter";
 import { CtaBanner } from "../components/CtaBanner";
 import { ServiceRow } from "../components/ServiceRow";
 
-function FacebookIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-    </svg>
-  );
-}
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" style={{ fill: "url(#ig-footer-g)" }}>
-      <defs>
-        <linearGradient id="ig-footer-g" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#f09433" />
-          <stop offset="50%" stopColor="#dc2743" />
-          <stop offset="100%" stopColor="#bc1888" />
-        </linearGradient>
-      </defs>
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-    </svg>
-  );
-}
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Contact", href: "#contact" },
-];
+const PORTFOLIO_PREVIEW_COUNT = 12;
 
 const features = [
   { num: "01", title: "Superior Quality", desc: "Every image hand-edited by professionals with 5+ years in real estate photography." },
@@ -66,37 +40,57 @@ const statsData = [
 export function HomePage() {
   const { services } = useServices();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
 
-  // Build portfolio images from services data
-  const portfolioImages = useMemo(() => {
-    const imgs: string[] = [];
-    services.forEach((s) => {
-      if (s.coverImage) imgs.push(s.coverImage);
-      s.images?.forEach((img: { url: string }) => {
-        if (img.url) imgs.push(img.url);
-      });
-    });
-    return imgs;
-  }, [services]);
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    if (lightboxIdx === null) return;
+    const previewImages = portfolioImages.slice(0, PORTFOLIO_PREVIEW_COUNT);
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxIdx(null);
+      if (e.key === "ArrowRight") setLightboxIdx((i) => (i === null ? 0 : (i + 1) % previewImages.length));
+      if (e.key === "ArrowLeft") setLightboxIdx((i) => (i === null ? 0 : (i - 1 + previewImages.length) % previewImages.length));
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightboxIdx]);
+
+  // Prevent body scroll when lightbox open
+  useEffect(() => {
+    if (lightboxIdx !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [lightboxIdx]);
 
   const coverPhotos    = heroImages[0];
   const coverDaytoDusk = heroImages[1];
   const coverStaging   = heroImages[3];
   const coverVideo     = heroImages[5];
+  const stepByStepImg  = stepByStepImages[0] ?? coverDaytoDusk;
 
-  const photos1    = services[0]?.images?.[0]?.url ?? heroImages[0];
-  const daytodusk1 = services[1]?.images?.[0]?.url ?? heroImages[1];
-  const retouch1   = services[2]?.images?.[0]?.url ?? heroImages[2];
-  const staging1   = services[3]?.images?.[0]?.url ?? heroImages[3];
+  // "Excellence in Every Edit" images: Photos, DayToDusk, Retouch, VHS — index [1] of each service's images
+  const photos1  = services[0]?.images?.[0]?.url ?? heroImages[0];
+  const dte1     = services[1]?.images?.[0]?.url ?? heroImages[1];
+  const retouch1 = services[2]?.images?.[0]?.url ?? heroImages[2];
+  const vhs1     = services[3]?.images?.[0]?.url ?? heroImages[3];
+
+  // Portfolio preview: first 12 images from portfolioImages array
+  const previewImages = portfolioImages.slice(0, PORTFOLIO_PREVIEW_COUNT);
 
   return (
     <div className="min-h-screen bg-white">
-
-      {/* ── SHARED HEADER ── */}
       <SharedHeader />
 
       {/* ── HERO ── */}
-      <section id="home" className="pt-16 min-h-screen flex items-center bg-gray-50">
+      <section id="home" className="pt-[68px] min-h-screen flex items-center bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left */}
@@ -118,9 +112,9 @@ export function HomePage() {
                 <a href="#services" className="px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 hover:shadow-lg hover:shadow-orange-200 text-sm">
                   Our Services
                 </a>
-                <a href="#portfolio" className="px-7 py-3 border-2 border-gray-200 text-gray-700 hover:border-orange-300 hover:text-orange-500 rounded transition-all duration-300 text-sm">
+                <Link to="/portfolio" className="px-7 py-3 border-2 border-gray-200 text-gray-700 hover:border-orange-300 hover:text-orange-500 rounded transition-all duration-300 text-sm">
                   View Portfolio
-                </a>
+                </Link>
               </div>
             </motion.div>
 
@@ -168,11 +162,7 @@ export function HomePage() {
               >
                 <p
                   className="text-gray-900 mb-2"
-                  style={{
-                    fontSize: "clamp(2.2rem, 5vw, 3.4rem)",
-                    fontFamily: "Georgia, serif",
-                    lineHeight: 1,
-                  }}
+                  style={{ fontSize: "clamp(2.2rem, 5vw, 3.4rem)", fontFamily: "Georgia, serif", lineHeight: 1 }}
                 >
                   <AnimatedCounter
                     target={stat.target}
@@ -211,7 +201,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
+      {/* ── EXCELLENCE IN EVERY EDIT ── */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -238,8 +228,9 @@ export function HomePage() {
               </div>
             </motion.div>
 
+            {/* Images: VHS, Photos, DTE, RE */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="grid grid-cols-2 gap-3">
-              {[photos1, daytodusk1, retouch1, staging1].map((img, i) => (
+              {[photos1, dte1, retouch1, vhs1].map((img, i) => (
                 <div key={i} className={`rounded-xl overflow-hidden shadow-md aspect-square${i % 2 === 1 ? " mt-6" : ""}`}>
                   <img src={img} alt="" className="w-full h-full object-cover" />
                 </div>
@@ -249,7 +240,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
+      {/* ── HOW IT WORKS / STEP BY STEP ── */}
       <section className="py-20 bg-gray-900 relative overflow-hidden">
         <div className="absolute inset-0">
           <img src={coverVideo} alt="" className="w-full h-full object-cover opacity-20" />
@@ -275,21 +266,37 @@ export function HomePage() {
                 ))}
               </div>
               <div className="mt-10">
-                <a href="#contact" className="inline-flex items-center gap-2 px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 text-sm">
+                <button
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 text-sm"
+                  onClick={() => {
+                    // trigger contact modal via SharedHeader - dispatch custom event
+                    window.dispatchEvent(new CustomEvent("open-contact-modal"));
+                  }}
+                >
                   Start Today <ChevronRight className="w-4 h-4" />
-                </a>
+                </button>
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-              className="rounded-2xl overflow-hidden shadow-2xl">
-              <img src={coverDaytoDusk} alt="Real estate editing" className="w-full h-full object-cover" style={{ maxHeight: "500px" }} />
+            {/* Step by Step image from stepByStepImages array */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <img
+                src={stepByStepImg}
+                alt="Step by step editing process"
+                className="w-full h-full object-cover"
+                style={{ maxHeight: "500px" }}
+              />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── PORTFOLIO GALLERY ── */}
+      {/* ── PORTFOLIO GALLERY (preview: first 12) ── */}
       <section id="portfolio" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
@@ -301,20 +308,46 @@ export function HomePage() {
             </p>
           </motion.div>
 
-          <div className="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
-            {portfolioImages.map((img, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                transition={{ delay: (i % 8) * 0.06 }}
-                className="break-inside-avoid rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow group mb-3">
-                <img src={img} alt={`Portfolio ${i + 1}`} className="w-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </motion.div>
-            ))}
-          </div>
+          {previewImages.length === 0 ? (
+            <div className="text-center py-16 text-gray-400 text-sm">
+              No portfolio images yet. Add images to the portfolioImages array in services.ts
+            </div>
+          ) : (
+            <div className="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
+              {previewImages.map((img, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (i % 8) * 0.06 }}
+                  className="break-inside-avoid rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group mb-3 cursor-pointer relative"
+                  onClick={() => setLightboxIdx(i)}
+                >
+                  <img
+                    src={img}
+                    alt={`Portfolio ${i + 1}`}
+                    className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                      <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                      </svg>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
 
-          <div className="text-center mt-10">
-            <a href="#contact" className="inline-flex items-center gap-2 px-7 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded transition-all duration-300 text-sm">
-              Get Started <ArrowRight className="w-4 h-4" />
-            </a>
+          <div className="text-center mt-10 flex flex-wrap gap-4 justify-center">
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 text-sm hover:shadow-lg hover:shadow-orange-200"
+            >
+              View All Portfolio <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
@@ -364,82 +397,73 @@ export function HomePage() {
       <CtaBanner backgroundImage={coverDaytoDusk} />
 
       {/* ── FOOTER ── */}
-      <footer id="contact" className="bg-gray-900 text-white pt-16 pb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-            {/* Brand */}
-            <div>
-              <img src={logoImg} alt="Magic Home" className="h-10 w-auto object-contain mb-4 opacity-90" />
-              <p className="text-gray-400 text-sm leading-relaxed mb-5">
-                Professional real estate photo editing service. Helping photographers save time and deliver stunning results.
-              </p>
-              <div className="flex items-center gap-3">
-                <a href="https://www.facebook.com/magichome.editing" target="_blank" rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center text-gray-400 hover:text-white transition-all">
-                  <FacebookIcon />
-                </a>
-                <a href="https://www.instagram.com/magichome.editing" target="_blank" rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center text-gray-400 hover:text-white transition-all">
-                  <InstagramIcon />
-                </a>
-              </div>
+      <SharedFooter />
+
+      {/* ── PORTFOLIO LIGHTBOX ── */}
+      <AnimatePresence>
+        {lightboxIdx !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/95 z-[9998] flex items-center justify-center p-4"
+            onClick={() => setLightboxIdx(null)}
+          >
+            {/* Close */}
+            <button
+              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
+              onClick={() => setLightboxIdx(null)}
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Counter */}
+            <div className="absolute top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-black/50 rounded-full text-white/70 text-sm z-10">
+              {lightboxIdx + 1} / {previewImages.length}
             </div>
 
-            {/* Services */}
-            <div>
-              <h4 className="text-white mb-4 text-sm" style={{ fontWeight: 600, letterSpacing: "0.05em" }}>Services</h4>
-              <ul className="space-y-2.5">
-                {services.map((s) => (
-                  <li key={s.id}>
-                    <a href={`/service/${s.id}`} className="text-gray-400 hover:text-orange-400 text-sm transition-colors flex items-center gap-1.5">
-                      <ChevronRight className="w-3 h-3 opacity-50" />{s.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* Prev */}
+            {previewImages.length > 1 && (
+              <button
+                className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIdx((i) => (i === null ? 0 : (i - 1 + previewImages.length) % previewImages.length));
+                }}
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            )}
 
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-white mb-4 text-sm" style={{ fontWeight: 600, letterSpacing: "0.05em" }}>Quick Links</h4>
-              <ul className="space-y-2.5">
-                {navLinks.map((l) => (
-                  <li key={l.label}>
-                    <a href={l.href} className="text-gray-400 hover:text-orange-400 text-sm transition-colors flex items-center gap-1.5">
-                      <ChevronRight className="w-3 h-3 opacity-50" />{l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <motion.img
+              key={lightboxIdx}
+              initial={{ scale: 0.93, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.93, opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              src={previewImages[lightboxIdx]}
+              alt={`Portfolio ${lightboxIdx + 1}`}
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              style={{ maxHeight: "85vh", maxWidth: "90vw" }}
+              onClick={(e) => e.stopPropagation()}
+            />
 
-            {/* Contact */}
-            <div>
-              <h4 className="text-white mb-4 text-sm" style={{ fontWeight: 600, letterSpacing: "0.05em" }}>Contact Us</h4>
-              <ul className="space-y-3">
-                <li>
-                  <a href="mailto:Magichome.editing@gmail.com" className="flex items-start gap-2.5 text-gray-400 hover:text-orange-400 text-sm transition-colors">
-                    <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    Magichome.editing@gmail.com
-                  </a>
-                </li>
-                <li>
-                  <a href="https://wa.me/84385603388" target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 text-gray-400 hover:text-orange-400 text-sm transition-colors">
-                    <Phone className="w-4 h-4 flex-shrink-0" />
-                    +84 385 603 388
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-gray-600 text-xs">© {new Date().getFullYear()} Magic Home. All rights reserved.</p>
-            <p className="text-gray-600 text-xs">Professional Real Estate Photo Editing</p>
-          </div>
-        </div>
-      </footer>
+            {/* Next */}
+            {previewImages.length > 1 && (
+              <button
+                className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIdx((i) => (i === null ? 0 : (i + 1) % previewImages.length));
+                }}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
