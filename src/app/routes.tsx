@@ -22,8 +22,8 @@ export const router = createBrowserRouter([
 		Component: NotFound,
 	},
 	 
-]
+],
  {
-  basename: "/"
+  basename: "/",
 }
 	  );
