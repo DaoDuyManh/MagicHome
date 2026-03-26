@@ -30,7 +30,7 @@ export const stepByStepImages: string[] = [
 // ── PORTFOLIO IMAGES ─────────────────────────────────────────────
 // Thêm ảnh vào thư mục /public/Portfolio/ và khai báo đường dẫn ở đây
 export const portfolioImages: string[] = [
-  `${b}Portfolio/Portfolio1.jpg`,
+ `${b}Portfolio/Portfolio1.jpg`,
   `${b}Portfolio/Portfolio2.jpg`,
   `${b}Portfolio/Portfolio3.jpg`,
   `${b}Portfolio/Portfolio4.jpg`,
