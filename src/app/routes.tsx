@@ -21,5 +21,7 @@ export const router = createBrowserRouter([
 		path: "*",
 		Component: NotFound,
 	},
-	  basename: "/MagicHome"
+	 {
+  basename: "/MagicHome"
+}
 ]);
