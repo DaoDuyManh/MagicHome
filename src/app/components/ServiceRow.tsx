@@ -1,0 +1,162 @@
+import { Link } from "react-router";
+import { motion } from "motion/react";
+import { BeforeAfterSlider } from "./BeforeAfterSlider";
+import { Service } from "../types/service";
+
+interface ServiceRowProps {
+  service: Service;
+  index: number;
+}
+
+/** Returns true if the text block should appear on the LEFT side */
+const textOnLeft = (index: number) => index % 2 === 0;
+
+function PriceBlock({ service }: { service: Service }) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-5 px-4 py-6 min-w-[140px]">
+      {/* Vertical divider – visible only on desktop */}
+      <div className="hidden lg:flex flex-col items-center gap-5 w-full">
+        <div className="flex-1 w-px bg-gray-200" style={{ minHeight: 20 }} />
+
+        <div className="text-center">
+          <p className="text-gray-900" style={{ fontSize: "clamp(1.6rem, 3vw, 2.1rem)", fontFamily: "Georgia, serif", lineHeight: 1 }}>
+            {service.price}
+          </p>
+          {service.priceUnit && (
+            <p className="text-gray-500 text-sm mt-1">{service.priceUnit}</p>
+          )}
+        </div>
+
+        <div className="w-px bg-gray-200" style={{ height: 24 }} />
+
+        <div className="text-center">
+          <p className="text-gray-900" style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)", fontFamily: "Georgia, serif", lineHeight: 1 }}>
+            {service.deliveryTime ?? ""}
+          </p>
+          {service.deliveryTime && (
+            <p className="text-gray-500 text-sm mt-1">turnaround</p>
+          )}
+        </div>
+
+        <div className="flex-1 w-px bg-gray-200" style={{ minHeight: 20 }} />
+      </div>
+
+      {/* Mobile: horizontal price strip */}
+      <div className="flex lg:hidden flex-row items-center justify-center gap-6 w-full py-2">
+        <div className="text-center">
+          <p className="text-gray-900" style={{ fontSize: "1.3rem", fontFamily: "Georgia, serif" }}>
+            {service.price}
+          </p>
+          {service.priceUnit && <p className="text-gray-400 text-xs mt-0.5">{service.priceUnit}</p>}
+        </div>
+        <div className="w-px h-10 bg-gray-200" />
+        <div className="text-center">
+          <p className="text-gray-900" style={{ fontSize: "1.1rem", fontFamily: "Georgia, serif" }}>
+            {service.deliveryTime}
+          </p>
+          <p className="text-gray-400 text-xs mt-0.5">turnaround</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TextBlock({ service, filled }: { service: Service; filled?: boolean }) {
+  return (
+    <div className="flex flex-col justify-center gap-4 py-6 px-2">
+      <div>
+        <h3
+          className="text-gray-900 mb-1"
+          style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontFamily: "Georgia, serif" }}
+        >
+          {service.name}
+        </h3>
+        {service.subtitle && (
+          <p className="text-orange-500 text-sm">{service.subtitle}</p>
+        )}
+      </div>
+      <p className="text-gray-600 text-sm leading-relaxed max-w-md">
+        {service.description}
+      </p>
+      <div>
+        <Link
+          to={`/service/${service.id}`}
+          className={`inline-flex items-center gap-2 px-6 py-2.5 rounded text-sm transition-all duration-300 hover:-translate-y-0.5 ${
+            filled
+              ? "bg-orange-500 hover:bg-orange-600 text-white shadow-sm hover:shadow-orange-200 hover:shadow-lg"
+              : "border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+          }`}
+        >
+          READ MORE{" "}
+          <span className="text-xs tracking-widest">»</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function MediaBlock({ service }: { service: Service }) {
+  const pair = service.beforeAfterPairs?.[0];
+  if (pair) {
+    return (
+      <BeforeAfterSlider before={pair.before} after={pair.after} />
+    );
+  }
+  // Fallback: cover image
+  return (
+    <div className="w-full overflow-hidden rounded-xl shadow-md" style={{ aspectRatio: "4/3" }}>
+      <img
+        src={service.coverImage}
+        alt={service.name}
+        className="w-full h-full object-cover"
+      />
+    </div>
+  );
+}
+
+export function ServiceRow({ service, index }: ServiceRowProps) {
+  const leftIsText = textOnLeft(index);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.07 }}
+      className="py-8 lg:py-12"
+    >
+      {/* Desktop: 3-col layout */}
+      <div className="hidden lg:flex items-stretch gap-0">
+        {/* Column A */}
+        <div className="flex-1 min-w-0">
+          {leftIsText ? (
+            <TextBlock service={service} filled={false} />
+          ) : (
+            <MediaBlock service={service} />
+          )}
+        </div>
+
+        {/* Center divider + price */}
+        <div className="flex-shrink-0 w-44 border-l border-r border-gray-100 flex items-stretch">
+          <PriceBlock service={service} />
+        </div>
+
+        {/* Column B */}
+        <div className="flex-1 min-w-0">
+          {leftIsText ? (
+            <MediaBlock service={service} />
+          ) : (
+            <TextBlock service={service} filled={true} />
+          )}
+        </div>
+      </div>
+
+      {/* Mobile: stack layout */}
+      <div className="flex lg:hidden flex-col gap-5">
+        <MediaBlock service={service} />
+        <TextBlock service={service} filled={true} />
+        <PriceBlock service={service} />
+      </div>
+    </motion.div>
+  );
+}
