@@ -60,12 +60,9 @@ export function SharedHeader() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
-             import { Link } from "react-router-dom";
-
-<Link to="/" className="text-gray-600 hover:text-orange-500 text-sm transition-colors" style={{ letterSpacing: "0.02em" }}>
-  Home
-</Link>
-
+              <a href="/#home" className="text-gray-600 hover:text-orange-500 text-sm transition-colors" style={{ letterSpacing: "0.02em" }}>
+                Home
+              </a>
 
               {/* Services dropdown */}
               <div
@@ -174,7 +171,7 @@ export function SharedHeader() {
             >
               <div className="px-4 py-3 flex flex-col gap-1">
                 <a
-                  href="/#home"
+                  href="/MagicHome"
                   onClick={() => setMenuOpen(false)}
                   className="px-3 py-2.5 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded text-sm transition-colors"
                 >
