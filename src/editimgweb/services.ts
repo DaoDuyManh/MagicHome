@@ -77,7 +77,7 @@ export const services = [
     subtitle: 'HDR – Single Exposure – Flambient',
     price: 'From $0.5',
     priceUnit: 'per image',
-    deliveryTime: '<24 hours delivery',
+    deliveryTime: '<12 hours delivery',
     description: 'Professional real estate photo editing — color correction, sky replacement, HDR blending and exposure enhancement to make every property shine.',
     coverImage: `${b}Photos/cover.jpg`,
     images: [
@@ -117,7 +117,7 @@ export const services = [
     subtitle: 'Twilight – Sunset Sky – Glow Effect',
     price: 'From $5',
     priceUnit: 'per image',
-    deliveryTime: '<24 hours delivery',
+    deliveryTime: '<12 hours delivery',
     description: 'Turn flat daytime exteriors into dramatic twilight shots — glowing windows, vivid sunset skies and ambient lighting that captivates buyers.',
     coverImage: `${b}DaytoDusk/cover.jpg`,
     images: [
@@ -142,7 +142,7 @@ export const services = [
     subtitle: 'Object Removal – Sky Enhancement – Cleanup',
     price: 'From $1',
     priceUnit: 'per image',
-    deliveryTime: '<24 hours delivery',
+    deliveryTime: '<12 hours delivery',
     description: 'Remove distractions, fix imperfections and polish every detail. Object removal, sky enhancement and full-scene cleanup for flawless listings.',
     coverImage: `${b}Retouch/cover.jpg`,
     images: [
@@ -162,7 +162,7 @@ export const services = [
     subtitle: 'High Quality – Furniture Placement – Renovation',
     price: 'From $15',
     priceUnit: 'per image',
-    deliveryTime: '<36 hours delivery',
+    deliveryTime: '<12 hours delivery',
     description: 'Digitally furnish empty rooms with photorealistic furniture and décor. Help buyers visualise the full lifestyle potential of any property.',
     coverImage: `${b}Virtual Home Staging/cover.jpg`,
     images: [
@@ -182,7 +182,7 @@ export const services = [
     subtitle: 'Cinematic – Drone Footage – Branded Films',
     price: 'From $20',
     priceUnit: 'per video',
-    deliveryTime: '<48 hours delivery',
+    deliveryTime: '<12 hours delivery',
     description: 'Cinematic real estate video production and post-production. Smooth walkthroughs, drone footage editing and branded property films.',
     coverImage: `${b}cover_video/covervideo.jpg`,
     images: [],
@@ -200,7 +200,7 @@ export const services = [
     subtitle: '2D & 3D – Precise Layout – Professional',
     price: 'From $10',
     priceUnit: 'per plan',
-    deliveryTime: '<48 hours delivery',
+    deliveryTime: '<12 hours delivery',
     description: 'Precise 2D and 3D floor plans drawn from photos or rough sketches. Clean, professional layouts that help buyers understand every space.',
     coverImage: `${b}Floorplan/cover.jpg`,
     images: [
