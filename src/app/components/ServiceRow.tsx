@@ -87,7 +87,7 @@ function TextBlock({ service, filled }: { service: Service; filled?: boolean }) 
           <p className="text-orange-500 text-sm">{service.subtitle}</p>
         )}
       </div>
-      <p className="text-gray-600 text-sm leading-relaxed max-w-md">
+      <p className="text-black text-sm leading-relaxed max-w-md">
         {service.description}
       </p>
       <div>
@@ -156,7 +156,7 @@ export function ServiceRow({ service, index }: ServiceRowProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.07 }}
-      className="py-8 lg:py-12"
+      className="py-12 lg:py-20"
     >
       {/* Desktop: 3-col layout */}
       <div className="hidden lg:flex items-stretch gap-0">
@@ -170,7 +170,7 @@ export function ServiceRow({ service, index }: ServiceRowProps) {
         </div>
 
         {/* Center divider + price */}
-        <div className="flex-shrink-0 w-44 border-l border-r border-gray-100 flex items-stretch">
+        <div className="flex-shrink-0 w-44 border-l border-r border-gray-100 flex items-stretch" style={{ borderColor: "rgba(0,0,0,0.1)" }}>
           <PriceBlock service={service} />
         </div>
 
