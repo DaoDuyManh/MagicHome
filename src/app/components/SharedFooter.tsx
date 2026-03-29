@@ -40,9 +40,29 @@ interface SharedFooterProps {
 export function SharedFooter({ onContactOpen }: SharedFooterProps) {
   const { services } = useServices();
 
+  const handleContactClick = () => {
+    // Trigger contact modal via SharedHeader - dispatch custom event
+    window.dispatchEvent(new CustomEvent("open-contact-modal"));
+  };
+
   return (
     <footer id="contact" className="bg-gray-900 text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Question CTA Banner */}
+        <div className="mb-12 border border-gray-700 rounded-lg p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <h3 className="text-white text-xl sm:text-2xl" style={{ fontFamily: "Georgia, serif" }}>
+            Do you have a question for us?
+          </h3>
+          <button
+            onClick={handleContactClick}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 text-sm uppercase tracking-wider whitespace-nowrap"
+            style={{ fontWeight: 700, letterSpacing: "0.1em" }}
+          >
+            GET IN TOUCH
+            <span className="text-lg" aria-hidden>»</span>
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
           {/* Brand */}
