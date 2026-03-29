@@ -9,6 +9,7 @@ import { SharedFooter } from "../components/SharedFooter";
 import { AnimatedCounter } from "../components/AnimatedCounter";
 import { CtaBanner } from "../components/CtaBanner";
 import { ServiceRow } from "../components/ServiceRow";
+import { HeroSlider } from "../components/HeroSlider";
 
 const PORTFOLIO_PREVIEW_COUNT = 12;
 
@@ -90,31 +91,39 @@ export function HomePage() {
       <SharedHeader />
 
       {/* ── HERO ── */}
-      <section id="home" className="pt-[68px] min-h-screen flex items-center bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <section id="home" className="pt-[68px] min-h-screen flex items-center bg-gray-50 relative overflow-hidden">
+        {/* Background slideshow with HeroSlider */}
+        <div className="absolute inset-0 z-0">
+          <HeroSlider images={heroImages} />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-50/20 via-gray-50/20 to-gray-50/20" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left */}
             <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-              <p className="text-orange-500 text-xs tracking-widest uppercase mb-4" style={{ letterSpacing: "0.2em" }}>
-                #1 Real Estate Editing Service
-              </p>
-              <h1 className="text-gray-900 mb-6"
-                style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)", fontFamily: "Georgia, serif", lineHeight: 1.15 }}>
-                REAL ESTATE<br />
-                <span className="text-orange-500">PHOTO EDITING</span>
-              </h1>
-              <p className="text-gray-500 mb-8 leading-relaxed max-w-lg" style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)" }}>
-                On the mission of helping photographers optimize their working time.
-                We provide high-quality photo and video editing services — so you can
-                focus on shooting, not post-processing.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="#services" className="px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 hover:shadow-lg hover:shadow-orange-200 text-sm">
-                  Our Services
-                </a>
-                <Link to="/portfolio" className="px-7 py-3 border-2 border-gray-200 text-gray-700 hover:border-orange-300 hover:text-orange-500 rounded transition-all duration-300 text-sm">
-                  View Portfolio
-                </Link>
+              {/* Highlighted background for text */}
+              <div className="bg-white/60 rounded-2xl shadow-xl p-8 md:p-12 mb-6">
+                <p className="text-orange-500 text-xs tracking-widest uppercase mb-4" style={{ letterSpacing: "0.2em" }}>
+                  #1 Real Estate Editing Service
+                </p>
+                <h1 className="text-gray-900 mb-6"
+                  style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)", fontFamily: "Georgia, serif", lineHeight: 1.15 }}>
+                  REAL ESTATE<br />
+                  <span className="text-orange-500">PHOTO EDITING</span>
+                </h1>
+                <p className="text-black mb-8 leading-relaxed max-w-lg" style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)" }}>
+                  On the mission of helping photographers optimize their working time.
+                  We provide high-quality photo and video editing services — so you can
+                  focus on shooting, not post-processing.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <a href="#services" className="px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 hover:shadow-lg hover:shadow-orange-200 text-sm">
+                    Our Services
+                  </a>
+                  <Link to="/portfolio" className="px-7 py-3 border-2 border-gray-200 text-gray-700 hover:border-orange-300 hover:text-orange-500 rounded transition-all duration-300 text-sm">
+                    View Portfolio
+                  </Link>
+                </div>
               </div>
             </motion.div>
 
@@ -137,7 +146,7 @@ export function HomePage() {
                     <Check className="w-5 h-5 text-orange-500" />
                   </div>
                   <div>
-                    <p className="text-gray-900 text-sm" style={{ fontWeight: 600 }}>12hr Delivery</p>
+                    <p className="text-gray-900 text-sm" style={{ fontWeight: 600 }}>4hr Delivery</p>
                     <p className="text-gray-400 text-xs">Rush available</p>
                   </div>
                 </motion.div>
@@ -185,7 +194,7 @@ export function HomePage() {
       <CtaBanner backgroundImage={coverPhotos} />
 
       {/* ── SERVICES ── */}
-      <section id="services" className="py-20 bg-white">
+      <section id="services" className="py-20 bg-[#e5e7eb]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
             <p className="text-orange-500 text-xs tracking-widest uppercase mb-3" style={{ letterSpacing: "0.2em" }}>What We Offer</p>
@@ -193,7 +202,7 @@ export function HomePage() {
             <div className="mt-4 flex justify-center"><div className="h-0.5 w-16 bg-orange-500 rounded" /></div>
           </motion.div>
 
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {services.map((service, i) => (
               <ServiceRow key={service.id} service={service} index={i} />
             ))}
@@ -204,38 +213,35 @@ export function HomePage() {
       {/* ── EXCELLENCE IN EVERY EDIT ── */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <p className="text-orange-500 text-xs tracking-widest uppercase mb-3" style={{ letterSpacing: "0.2em" }}>Why Choose Us</p>
-              <h2 className="text-gray-900 mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontFamily: "Georgia, serif" }}>
-                Excellence in Every Edit
-              </h2>
-              <p className="text-gray-500 mb-10 leading-relaxed">
-                We combine technical expertise with an eye for detail to deliver real estate images that truly stand out — helping properties sell faster and for more.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {features.map((f, i) => (
-                  <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="flex gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-orange-500 flex items-center justify-center text-white text-xs" style={{ fontWeight: 700 }}>
-                      {f.num}
-                    </div>
-                    <div>
-                      <h3 className="text-gray-900 mb-1" style={{ fontSize: "0.95rem", fontWeight: 600 }}>{f.title}</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+            <p className="text-orange-500 text-xs tracking-widest uppercase mb-3" style={{ letterSpacing: "0.2em" }}>Why Choose Us</p>
+            <h2 className="text-gray-900 mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontFamily: "Georgia, serif" }}>
+              Excellence in Every Edit
+            </h2>
+            <p className="text-gray-500 leading-relaxed max-w-2xl mx-auto">
+              We combine technical expertise with an eye for detail to deliver real estate images that truly stand out — helping properties sell faster and for more.
+            </p>
+          </motion.div>
 
-            {/* Images: VHS, Photos, DTE, RE */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="grid grid-cols-2 gap-3">
-              {[photos1, dte1, retouch1, vhs1].map((img, i) => (
-                <div key={i} className={`rounded-xl overflow-hidden shadow-md aspect-square${i % 2 === 1 ? " mt-6" : ""}`}>
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((f, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ delay: i * 0.1 }} 
+                className="flex flex-col gap-4 items-center text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center text-white" style={{ fontWeight: 700, fontSize: "1.1rem" }}>
+                  {f.num}
                 </div>
-              ))}
-            </motion.div>
+                <div>
+                  <h3 className="text-gray-900 mb-2" style={{ fontSize: "1rem", fontWeight: 600 }}>{f.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -393,9 +399,6 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA BANNER (bottom) ── */}
-      <CtaBanner backgroundImage={coverDaytoDusk} />
-
       {/* ── FOOTER ── */}
       <SharedFooter />
 
@@ -403,64 +406,42 @@ export function HomePage() {
       <AnimatePresence>
         {lightboxIdx !== null && (
           <motion.div
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/95 z-[9998] flex items-center justify-center p-4"
-            onClick={() => setLightboxIdx(null)}
+            transition={{ duration: 0.3 }}
           >
-            {/* Close */}
-            <button
-              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
-              onClick={() => setLightboxIdx(null)}
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Counter */}
-            <div className="absolute top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-black/50 rounded-full text-white/70 text-sm z-10">
-              {lightboxIdx + 1} / {previewImages.length}
+            <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <motion.div
+                className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={previewImages[lightboxIdx]}
+                  alt={`Portfolio ${lightboxIdx + 1}`}
+                  className="w-full object-cover"
+                />
+                <div className="absolute top-4 right-4 bg-white rounded-full shadow-md p-2 cursor-pointer"
+                  onClick={() => setLightboxIdx(null)}
+                >
+                  <X className="w-5 h-5 text-gray-500" />
+                </div>
+                <div className="absolute bottom-4 left-4 bg-white rounded-full shadow-md p-2 cursor-pointer"
+                  onClick={() => setLightboxIdx((i) => (i === null ? 0 : (i - 1 + previewImages.length) % previewImages.length))}
+                >
+                  <ChevronLeft className="w-5 h-5 text-gray-500" />
+                </div>
+                <div className="absolute bottom-4 right-4 bg-white rounded-full shadow-md p-2 cursor-pointer"
+                  onClick={() => setLightboxIdx((i) => (i === null ? 0 : (i + 1) % previewImages.length))}
+                >
+                  <ChevronRight className="w-5 h-5 text-gray-500" />
+                </div>
+              </motion.div>
             </div>
-
-            {/* Prev */}
-            {previewImages.length > 1 && (
-              <button
-                className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLightboxIdx((i) => (i === null ? 0 : (i - 1 + previewImages.length) % previewImages.length));
-                }}
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-            )}
-
-            <motion.img
-              key={lightboxIdx}
-              initial={{ scale: 0.93, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.93, opacity: 0 }}
-              transition={{ duration: 0.22 }}
-              src={previewImages[lightboxIdx]}
-              alt={`Portfolio ${lightboxIdx + 1}`}
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-              style={{ maxHeight: "85vh", maxWidth: "90vw" }}
-              onClick={(e) => e.stopPropagation()}
-            />
-
-            {/* Next */}
-            {previewImages.length > 1 && (
-              <button
-                className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLightboxIdx((i) => (i === null ? 0 : (i + 1) % previewImages.length));
-                }}
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            )}
           </motion.div>
         )}
       </AnimatePresence>
