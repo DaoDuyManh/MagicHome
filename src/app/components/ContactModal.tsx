@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Mail, Phone } from "lucide-react";
+import { EmailDropdownButton } from "./EmailDropdownButton";
 
 const EMAIL = "Magichome.editing@gmail.com";
 const WHATSAPP = "84385603388";
@@ -68,12 +69,13 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   const contacts = [
     {
-      icon: <Mail className="w-5 h-5 text-orange-500" />,
+      icon: <Mail className="w-5 h-5 text-orange-500" />, 
       bg: "bg-orange-50",
       label: "Email",
       value: EMAIL,
-      href: `mailto:${EMAIL}`,
-      description: "Send us an email anytime",
+      href: undefined, // Sẽ xử lý riêng
+      description: "Chọn phương thức gửi email",
+      isEmail: true,
     },
     {
       icon: <span className="text-green-500"><WhatsAppIcon /></span>,
@@ -150,29 +152,33 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {/* Contact items */}
             <div className="px-7 py-5 flex flex-col gap-3">
               {contacts.map((c) => (
-                <motion.a
-                  key={c.label}
-                  href={c.href}
-                  target={c.href.startsWith("http") ? "_blank" : undefined}
-                  rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  className="flex items-center gap-4 p-3.5 rounded-2xl border border-gray-100 hover:border-orange-200 hover:bg-orange-50/30 transition-all group"
-                  style={{ textDecoration: "none" }}
-                >
-                  <div className={`w-11 h-11 rounded-2xl ${c.bg} flex items-center justify-center flex-shrink-0`}>
-                    {c.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-gray-900 text-sm" style={{ fontWeight: 600 }}>{c.label}</p>
-                    <p className="text-gray-500 text-xs truncate">{c.value}</p>
-                  </div>
-                  <div className="text-gray-300 group-hover:text-orange-400 transition-colors flex-shrink-0">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </motion.a>
+                c.isEmail ? (
+                  <EmailDropdownButton key={c.label} icon={c.icon} bg={c.bg} label={c.label} value={c.value} />
+                ) : (
+                  <motion.a
+                    key={c.label}
+                    href={c.href}
+                    target={c.href && c.href.startsWith("http") ? "_blank" : undefined}
+                    rel={c.href && c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    whileHover={{ x: 4 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="flex items-center gap-4 p-3.5 rounded-2xl border border-gray-100 hover:border-orange-200 hover:bg-orange-50/30 transition-all group"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <div className={`w-11 h-11 rounded-2xl ${c.bg} flex items-center justify-center flex-shrink-0`}>
+                      {c.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-gray-900 text-sm" style={{ fontWeight: 600 }}>{c.label}</p>
+                      <p className="text-gray-500 text-xs truncate">{c.value}</p>
+                    </div>
+                    <div className="text-gray-300 group-hover:text-orange-400 transition-colors flex-shrink-0">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </motion.a>
+                )
               ))}
             </div>
 
