@@ -28,9 +28,9 @@ function InstagramIcon() {
 }
 
 const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/#services" },
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Home", href: "/MagicHome/" },
+  { label: "Services", href: "/MagicHome/" },
+  { label: "Portfolio", href: "/MagicHome/portfolio" },
 ];
 
 interface SharedFooterProps {
