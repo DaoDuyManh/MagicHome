@@ -154,6 +154,26 @@ export const services = [
       { id: 'ba2', before: `${b}Before_After Image Slider/Retouch/before2.jpg`, after: `${b}Before_After Image Slider/Retouch/affter2.jpg`, label: 'Before & After 2' },
     ],
   },
+  // ── 3. Grass Replacement ────────────────────────────────────────────────
+  {
+    id: 'grass-replacement',
+    name: 'Grass Replacement',
+    subtitle: 'Turf Repair – Patch Filling – Greener Lawns',
+    price: 'From $1',
+    priceUnit: 'per image',
+    deliveryTime: '<12 hours delivery',
+    description: 'Replace worn or patchy lawns with natural-looking grass replacement and patch repairs to boost curb appeal in listing photos.',
+    coverImage: `${b}GrassReplacement/cover.jpg`,
+    images: [
+      { id: '1', url: `${b}GrassReplacement/GrassReplacement1.jpg`, caption: '' },
+      { id: '2', url: `${b}GrassReplacement/GrassReplacement2.jpg`, caption: '' },
+    ],
+    videos: [],
+    beforeAfterPairs: [
+      { id: 'ba1', before: `${b}Before_After Image Slider/GrassReplacement/before1.jpg`, after: `${b}Before_After Image Slider/GrassReplacement/affter1.jpg`, label: 'Before & After 1' },
+      { id: 'ba2', before: `${b}Before_After Image Slider/GrassReplacement/before2.jpg`, after: `${b}Before_After Image Slider/GrassReplacement/affter2.jpg`, label: 'Before & After 2' },
+    ],
+  },
 
   // ── 4. VIRTUAL HOME STAGING ───────────────────────────────────
   {

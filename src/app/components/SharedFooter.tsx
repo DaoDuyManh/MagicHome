@@ -47,10 +47,10 @@ export function SharedFooter({ onContactOpen }: SharedFooterProps) {
   };
 
   return (
-    <footer id="contact" className="bg-gray-900 text-white pt-16 pb-8">
+    <footer id="contact" className="bg-gray-900 text-white pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Question CTA Banner */}
-        <div className="mb-12 border border-gray-700 rounded-lg p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mb-8 border border-gray-700 rounded-lg p-6 flex flex-col sm:flex-row items-center justify-between gap-5">
           <h3 className="text-white text-xl sm:text-2xl" style={{ fontFamily: "Georgia, serif" }}>
             Try 3 HDR for free now !!!
           </h3>
@@ -64,12 +64,12 @@ export function SharedFooter({ onContactOpen }: SharedFooterProps) {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
 
           {/* Brand + Contact */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-5 select-none w-fit">
-              <img src={logoImg} alt="Magic Home" className="h-10 w-auto object-contain opacity-90" />
+              <img src={logoImg} alt="Magic Home" className="h-9 w-auto object-contain opacity-90" />
               <span style={{ fontFamily: "Georgia, serif", fontSize: "1.15rem" }}>
                 <span className="text-orange-400">Magic</span>
                 <span className="text-white">Home</span>
@@ -145,7 +145,7 @@ export function SharedFooter({ onContactOpen }: SharedFooterProps) {
 
           {/* Footer image (right column) */}
           <div className="hidden md:block lg:col-span-2">
-            <div className="w-full h-48 md:h-64 lg:h-80 rounded-xl overflow-hidden">
+            <div className="w-full h-36 md:h-48 lg:h-56 rounded-xl overflow-hidden">
               <img
                 src={footerImg}
                 alt="MagicHome"
@@ -155,7 +155,7 @@ export function SharedFooter({ onContactOpen }: SharedFooterProps) {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-600 text-xs">© {new Date().getFullYear()} Magic Home. All rights reserved.</p>
           <p className="text-gray-600 text-xs">Professional Real Estate Photo Editing</p>
         </div>
