@@ -87,7 +87,7 @@ function TextBlock({ service, filled }: { service: Service; filled?: boolean }) 
           <p className="text-orange-500 text-sm">{service.subtitle}</p>
         )}
       </div>
-      <p className="text-black text-sm leading-relaxed max-w-md">
+      <p className="text-black text-base leading-relaxed max-w-md">
         {service.description}
       </p>
       <div>

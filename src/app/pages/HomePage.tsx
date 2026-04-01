@@ -231,7 +231,7 @@ export function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true }} 
                 transition={{ delay: i * 0.1 }} 
-                className="flex flex-col gap-4 items-center text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all"
+                className="flex flex-col gap-4 items-center text-center p-6 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-orange-200 transition-all"
               >
                 <div className="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center text-white" style={{ fontWeight: 700, fontSize: "1.1rem" }}>
                   {f.num}

@@ -76,6 +76,8 @@ export function SharedFooter({ onContactOpen }: SharedFooterProps) {
               </span>
             </Link>
 
+            <address className="not-italic text-gray-400 text-sm mb-3">Address: Ha Long, Quang Ninh, Viet Nam</address>
+
             {/* Contact info */}
             <ul className="space-y-3 mb-5">
               <li>
