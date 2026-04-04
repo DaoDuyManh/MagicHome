@@ -529,7 +529,7 @@ export function HomePage() {
                         fontSize: "1.3rem",
                         fontWeight: 700,
                         lineHeight: 1,
-                        transform: "translateY(18px)",
+                        transform: "translateY(19px)",
                       }}
                     >
                       {s.step}
