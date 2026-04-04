@@ -232,9 +232,8 @@ export function HomePage() {
                 >
                   On the mission of helping photographers
                   optimize their working time. We provide
-                  high-quality photo and video editing services
-                  — so you can focus on shooting, not
-                  post-processing.
+                  high-quality photo and video editing services.
+              
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
@@ -449,7 +448,7 @@ export function HomePage() {
               <h3
                 className="text-gray-900 mb-8 text-center"
                 style={{
-                  fontSize: "clamp(1.4rem, 2.5vw, 2rem)",
+                  fontSize: "clamp(1.6rem, 2.7vw, 2.2rem)",
                   fontFamily: "Georgia, serif",
                   textShadow: "0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.7)",
                 }}
@@ -480,13 +479,13 @@ export function HomePage() {
                       <h4
                         className="text-gray-900 mb-2"
                         style={{
-                          fontSize: "1rem",
+                          fontSize: "1.125rem",
                           fontWeight: 600,
                         }}
                       >
                         {f.title}
                       </h4>
-                      <p className="text-black text-sm leading-relaxed">
+                      <p className="text-black text-base leading-relaxed">
                         {f.desc}
                       </p>
                     </div>
@@ -505,7 +504,7 @@ export function HomePage() {
               <h3
                 className="text-gray-900 mb-8 text-center"
                 style={{
-                  fontSize: "clamp(1.4rem, 2.5vw, 2rem)",
+                  fontSize: "clamp(1.6rem, 2.7vw, 2.2rem)",
                   fontFamily: "Georgia, serif",
                   textShadow: "0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.7)",
                 }}
@@ -521,29 +520,31 @@ export function HomePage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15 }}
-                    className="flex gap-5 bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-orange-200 transition-all flex-1"
+                    className="flex gap-5 bg-[#b7d4d3] p-6 rounded-xl border border-transparent shadow-sm hover:shadow-lg hover:border-orange-200 transition-all flex-1"
                   >
                     <div
-                      className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-orange-500 flex items-center justify-center text-orange-500"
+                      className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-orange-500 flex items-center justify-center text-black leading-none"
                       style={{
-                        fontFamily: "Georgia, serif",
-                        fontSize: "1.1rem",
-                        fontWeight: 600,
+                        fontFamily: "Times New Roman, serif",
+                        fontSize: "1.3rem",
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        transform: "translateY(18px)",
                       }}
                     >
                       {s.step}
                     </div>
                     <div className="pt-1">
                       <h4
-                        className="text-gray-900 mb-2"
+                        className="text-black mb-2"
                         style={{
-                          fontSize: "1rem",
+                          fontSize: "1.125rem",
                           fontWeight: 600,
                         }}
                       >
                         {s.title}
                       </h4>
-                      <p className="text-black text-sm leading-relaxed">
+                      <p className="text-black text-base leading-relaxed">
                         {s.desc}
                       </p>
                     </div>
@@ -555,16 +556,14 @@ export function HomePage() {
 
           {/* Start Today Button - Centered below both columns */}
           <div className="text-center">
-            <button
-              className="inline-flex items-center gap-3 px-10 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-all duration-300 hover:shadow-xl text-base font-semibold"
-              onClick={() => {
-                window.dispatchEvent(
-                  new CustomEvent("open-contact-modal"),
-                );
-              }}
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=Magichome.editing@gmail.com&su=Start%20Today%20Inquiry"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-4 px-14 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-all duration-300 hover:shadow-xl text-lg font-semibold"
             >
               Start Today <ChevronRight className="w-5 h-5" />
-            </button>
+            </a>
           </div>
         </div>
       </section>

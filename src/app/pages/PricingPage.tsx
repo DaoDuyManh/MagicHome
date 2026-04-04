@@ -95,9 +95,9 @@ const pricingCards: PricingCard[] = [
     id: "virtual-staging",
     icon: <IconStaging />,
     name: "Virtual Staging",
-    delivery: "Up to 24hrs Image Delivery",
+    delivery: "Up to 12–24hrs Image Delivery",
     description: "Hyper-Realistic staging utilizing designer brands, curated by world-class interior designers.",
-    price: "$15",
+    price: "From $15",
     priceNote: "per image",
     features: [
       "01. Declutter",
@@ -111,7 +111,7 @@ const pricingCards: PricingCard[] = [
     name: "Photo Editing",
     delivery: "Up to 12–24hrs Image Delivery",
     description: "We use a 16-step process to make sure every photo you receive looks amazing.",
-    price: "$0.5",
+    price: "From $0.5",
     priceNote: "per image",
     highlight: true,
     features: [
@@ -134,14 +134,14 @@ const pricingCards: PricingCard[] = [
     name: "Retouch",
     delivery: "Up to 12–24hrs Image Delivery",
     description: "Advanced retouching to bring every property photo to its full potential.",
-    price: "$1.0",
+    price: "From$1.0",
     priceNote: "per image",
     features: [
-      "01. Remove unwanted objects",
+      "01. Change grass",
       "02. Fix lens distortion",
-      "03. Advanced sky replacement",
-      "04. Window pull / twilight swap",
-      "05. Object removal",
+      "03. Window pull / twilight swap",
+      "04. Object removal",
+      "05. Remove unwanted objects",
     ],
   },
   {
@@ -150,7 +150,7 @@ const pricingCards: PricingCard[] = [
     name: "Day to Dusk",
     delivery: "Up to 12–24hrs Image Delivery",
     description: "Transform daytime exterior shots into stunning dusk/twilight images that impress.",
-    price: "$5.0",
+    price: "From $5.0",
     priceNote: "per image",
     features: [
       "01. Sky replacement to dusk/sunset",
@@ -166,7 +166,7 @@ const pricingCards: PricingCard[] = [
     name: "Video",
     delivery: "Up to 12–24hrs Image Delivery",
     description: "Big or small we can remove anything from your photos.",
-    price: "$20",
+    price: "From $20",
     priceNote: "per object",
     features: [
       "01. Listing Video",
@@ -180,9 +180,9 @@ const pricingCards: PricingCard[] = [
     id: "floorplan",
     icon: <IconFloorplan />,
     name: "Floor Plan",
-    delivery: "Up to 24hrs Delivery",
+    delivery: "Up to 12–24hrs Delivery",
     description: "Clean, accurate and beautifully presented floor plans from your sketches or photos.",
-    price: "$10",
+    price: "From $10",
     priceNote: "per floor plan",
     features: [
       "01. 2D Floor Plan",
@@ -197,9 +197,6 @@ const pricingCards: PricingCard[] = [
 // ─── Card component ────────────────────────────────────────────────────────────
 
 function PriceCard({ card, index }: { card: PricingCard; index: number }) {
-  const openContact = () => {
-    window.dispatchEvent(new CustomEvent("open-contact-modal"));
-  };
 
   return (
     <motion.div
@@ -211,7 +208,7 @@ function PriceCard({ card, index }: { card: PricingCard; index: number }) {
       style={card.highlight ? { boxShadow: "0 4px 30px rgba(249,115,22,0.12)", borderColor: "#f97316" } : {}}
     >
       {card.highlight && (
-        <div className="bg-orange-500 text-white text-xs text-center py-1.5 tracking-widest" style={{ letterSpacing: "0.12em", fontWeight: 600 }}>
+        <div className="bg-orange-500 text-white text-lg text-center py-1.5 tracking-widest" style={{ letterSpacing: "0.12em", fontWeight: 600 }}>
           MOST POPULAR
         </div>
       )}
@@ -223,17 +220,17 @@ function PriceCard({ card, index }: { card: PricingCard; index: number }) {
         </div>
 
         {/* Name */}
-        <h3 className="text-center text-gray-900 mb-1" style={{ fontFamily: "Georgia, serif", fontSize: "1.3rem" }}>
+        <h3 className="text-center text-gray-900 mb-1" style={{ fontFamily: "Georgia, serif", fontSize: "2rem" }}>
           {card.name}
         </h3>
 
         {/* Delivery */}
-        <p className="text-center text-orange-500 text-sm mb-4" style={{ fontWeight: 500 }}>
+        <p className="text-center text-orange-500 text-xl mb-4" style={{ fontWeight: 500 }}>
           {card.delivery}
         </p>
 
         {/* Description */}
-        <p className="text-center text-gray-500 text-sm leading-relaxed mb-6">
+        <p className="text-center text-gray-500 text-xl leading-relaxed mb-6">
           {card.description}
         </p>
 
@@ -242,36 +239,39 @@ function PriceCard({ card, index }: { card: PricingCard; index: number }) {
 
         {/* Price */}
         <div className="text-center mb-6">
-          <span className="text-gray-900" style={{ fontFamily: "Georgia, serif", fontSize: "2.8rem", fontWeight: 700, lineHeight: 1 }}>
+          <span className="text-gray-900" style={{ fontFamily: "Times New Roman", fontSize: "2.8rem", fontWeight: 700, lineHeight: 1 }}>
             {card.price}
           </span>
           {card.priceNote && (
-            <p className="text-gray-400 text-xs mt-1">{card.priceNote}</p>
+            <p className="text-gray-400 text-lg mt-1">{card.priceNote}</p>
           )}
         </div>
 
         {/* Features */}
         <ul className="flex-1 space-y-2 mb-8">
           {card.features.map((f, i) => (
-            <li key={i} className="text-gray-500 text-sm text-center" style={{ lineHeight: 1.6 }}>
+            <li key={i} className="text-gray-500 text-xl text-center" style={{ lineHeight: 1.6 }}>
               {f}
             </li>
           ))}
         </ul>
 
         {/* CTA */}
-        <button
-          onClick={openContact}
-          className="w-full py-3 rounded-full text-sm transition-all duration-300 hover:-translate-y-0.5"
+        <a
+          href={"https://mail.google.com/mail/?view=cm&fs=1&to=Magichome.editing@gmail.com&su=" + encodeURIComponent(`Inquiry: ${card.name}`)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full inline-block text-center py-3 rounded-full text-xl transition-all duration-300 hover:-translate-y-0.5"
           style={{
             background: card.highlight ? "#f97316" : "#111",
             color: "white",
             fontWeight: 700,
             letterSpacing: "0.08em",
+            textDecoration: "none",
           }}
         >
           START NOW
-        </button>
+        </a>
       </div>
     </motion.div>
   );
@@ -301,13 +301,13 @@ export function PricingPage() {
               {/* Top rule */}
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex-1 h-px bg-gray-200" />
-                <p className="text-gray-900 tracking-widest text-sm" style={{ fontWeight: 700, letterSpacing: "0.2em" }}>
+                <p className="text-gray-900 tracking-widest text-xl" style={{ fontWeight: 700, letterSpacing: "0.2em" }}>
                   PHOTO EDITING PRICING
                 </p>
                 <div className="flex-1 h-px bg-gray-200" />
               </div>
 
-              <p className="text-gray-500 text-sm max-w-xl mx-auto leading-relaxed">
+              <p className="text-gray-500 text-xl max-w-xl mx-auto leading-relaxed">
                 Transparent, competitive rates for every real estate editing need. No hidden fees — just beautiful results.
               </p>
             </motion.div>
@@ -328,7 +328,7 @@ export function PricingPage() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-center text-gray-400 text-xs mt-12 leading-relaxed"
+              className="text-center text-gray-400 text-lg mt-12 leading-relaxed"
             >
               All prices are in USD per image. Volume discounts available — contact us for custom packages.
               <br />
@@ -342,23 +342,25 @@ export function PricingPage() {
               viewport={{ once: true }}
               className="mt-16 border border-gray-200 rounded-2xl p-10 text-center"
             >
-              <h2 className="text-gray-900 mb-3" style={{ fontFamily: "Georgia, serif", fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>
+              <h2 className="text-gray-900 mb-3" style={{ fontFamily: "Georgia, serif", fontSize: "clamp(2rem, 3.2vw, 2.6rem)" }}>
                 Need a custom quote?
               </h2>
-              <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
+              <p className="text-gray-500 text-xl mb-6 max-w-lg mx-auto">
                 Have a large volume of images, a recurring project, or a unique editing requirement? Reach out — we'll tailor a package that works for you.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
-                  className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded text-sm transition-all duration-300 hover:shadow-lg hover:shadow-orange-200"
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=Magichome.editing@gmail.com&su=Custom%20Quote%20Request"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded text-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-200"
                   style={{ fontWeight: 600 }}
                 >
                   Get in Touch
-                </button>
+                </a>
                 <Link
                   to="/"
-                  className="px-8 py-3 border-2 border-gray-200 text-gray-600 hover:border-orange-300 hover:text-orange-500 rounded text-sm transition-all duration-300"
+                  className="px-8 py-3 border-2 border-gray-200 text-gray-600 hover:border-orange-300 hover:text-orange-500 rounded text-xl transition-all duration-300"
                 >
                   View Our Services
                 </Link>

@@ -54,14 +54,16 @@ export function SharedFooter({ onContactOpen }: SharedFooterProps) {
           <h3 className="text-white text-xl sm:text-2xl" style={{ fontFamily: "Georgia, serif" }}>
             Try 3 HDR for free now !!!
           </h3>
-          <button
-            onClick={handleContactClick}
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=Magichome.editing@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all duration-300 text-sm uppercase tracking-wider whitespace-nowrap"
             style={{ fontWeight: 700, letterSpacing: "0.1em" }}
           >
             GET IN TOUCH
             <span className="text-lg" aria-hidden>»</span>
-          </button>
+          </a>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">

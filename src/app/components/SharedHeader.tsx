@@ -147,12 +147,14 @@ export function SharedHeader() {
 
             {/* CTA Button */}
             <div className="hidden md:flex items-center gap-3">
-              <button
-                onClick={() => setContactOpen(true)}
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=Magichome.editing@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded text-sm transition-colors"
               >
                 Get in Touch
-              </button>
+              </a>
             </div>
 
             {/* Mobile hamburger */}
@@ -243,12 +245,15 @@ export function SharedHeader() {
                   Contact
                 </button>
 
-                <button
-                  onClick={() => { setMenuOpen(false); setContactOpen(true); }}
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=Magichome.editing@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
                   className="mt-2 px-3 py-2.5 bg-orange-500 text-white rounded text-sm text-center"
                 >
                   Get in Touch
-                </button>
+                </a>
               </div>
             </motion.div>
           )}
