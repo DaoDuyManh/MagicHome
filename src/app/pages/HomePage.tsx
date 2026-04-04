@@ -520,10 +520,10 @@ export function HomePage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.15 }}
-                    className="flex gap-5 bg-[#b7d4d3] p-6 rounded-xl border border-transparent shadow-sm hover:shadow-lg hover:border-orange-200 transition-all flex-1"
+                    className="flex gap-5 bg-[#f9fafb] p-6 rounded-xl border border-transparent shadow-sm hover:shadow-lg hover:border-orange-200 transition-all flex-1"
                   >
                     <div
-                      className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-orange-500 flex items-center justify-center text-black leading-none"
+                      className="flex-shrink-0 w-12 h-12 rounded-full border-4 border-orange-500 flex items-center justify-center text-black leading-none"
                       style={{
                         fontFamily: "Times New Roman, serif",
                         fontSize: "1.3rem",
