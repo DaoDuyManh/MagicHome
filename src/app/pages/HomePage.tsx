@@ -523,13 +523,13 @@ export function HomePage() {
                     className="flex gap-5 bg-[#f9fafb] p-6 rounded-xl border border-transparent shadow-sm hover:shadow-lg hover:border-orange-200 transition-all flex-1"
                   >
                     <div
-                      className="flex-shrink-0 w-12 h-12 rounded-full border-4 border-orange-500 flex items-center justify-center text-black leading-none"
+                      className="flex-shrink-0 w-16 h-16 rounded-full border-4 border-orange-500 flex items-center justify-center text-orange-500 leading-none"
                       style={{
                         fontFamily: "Times New Roman, serif",
-                        fontSize: "1.3rem",
+                        fontSize: "2.1rem",
                         fontWeight: 700,
                         lineHeight: 1,
-                        transform: "translateY(19px)",
+                        transform: "translateY(15px)",
                       }}
                     >
                       {s.step}
@@ -593,7 +593,7 @@ export function HomePage() {
               Portfolio
             </h2>
             <div className="mt-4 flex justify-center">
-              <div className="h-0.5 w-16 bg-orange-500 rounded" />
+              <div className="h-0.5 w-15 bg-orange-500 rounded" />
             </div>
             <p className="text-gray-400 mt-4 max-w-xl mx-auto text-sm">
               A selection of our best real estate photo editing
