@@ -134,7 +134,7 @@ const pricingCards: PricingCard[] = [
     name: "Retouch",
     delivery: "Up to 12–24hrs Image Delivery",
     description: "Advanced retouching to bring every property photo to its full potential.",
-    price: "From$1.0",
+    price: "From $1.0",
     priceNote: "per image",
     features: [
       "01. Change grass",
